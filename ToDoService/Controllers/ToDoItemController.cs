@@ -21,8 +21,8 @@ namespace ToDoService.Controllers
                 Title = "Home work",
                 Description = "Have to complete home work",
                 Id = currentId,
-                IsDone = false
-            }
+                IsDone = false,
+            },
         };
 
         [HttpGet("{id}")]
@@ -56,14 +56,14 @@ namespace ToDoService.Controllers
             return CreatedAtAction(nameof(Get), new { id = toDoItem.Id }, toDoItem);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public ToDoItem Update(ToDoItem todoItem)
         {
             CheckAndThrowException();
             var foundToDoItem = toDoItems.FirstOrDefault(item => item.Id == todoItem.Id);
             if (foundToDoItem != null)
             {
-                foundToDoItem.IsDone = true;
+                //foundToDoItem.IsDone = true;
                 foundToDoItem.Description = todoItem.Description;
                 foundToDoItem.Title = todoItem.Title;
             }
@@ -71,7 +71,7 @@ namespace ToDoService.Controllers
             return foundToDoItem;
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public ToDoItem Delete(long id)
         {
             CheckAndThrowException();
